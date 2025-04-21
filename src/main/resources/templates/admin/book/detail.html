@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/layout/head::head}"></head>
+
+<body class="sb-nav-fixed">
+    <div th:replace="~{admin/layout/header::header}"></div>
+    <div id="layoutSidenav">
+        <div th:replace="~{admin/layout/sidebar::sidebar}"></div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Cập nhật</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a th:href="@{/admin/dashboard}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item"><a th:href="@{/admin/book}">Sách</a></li>
+                    </ol>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <b>Thể loại: </b>
+                                <span th:text="${currentBook.bookType.name}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Tên sách: </b>
+                                <span th:text="${currentBook.name}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Nhà cung cấp: </b>
+                                <span th:text="${currentBook.provider.name}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Năm phát hành: </b>
+                                <span th:text="${currentBook.releaseYear}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Giá bán: </b>
+                                <span th:text="${currentBook.price}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Số lượng: </b>
+                                <span th:text="${currentBook.quantity}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Tổng số trang: </b>
+                                <span th:text="${currentBook.totalPage}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <div><b>Hình ảnh: </b></div>
+                                <img id="output" width="300px" th:src="${currentBook.image}" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <b>Tác giả: </b>
+                                <span th:text="${currentBook.author}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Dịch giả: </b>
+                                <span th:text="${currentBook.translator}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Nhà xuất bản: </b>
+                                <span th:text="${currentBook.publisher}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Trọng lượng(gr): </b>
+                                <span th:text="${currentBook.weight}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Kích thước bao bì: </b>
+                                <span th:text="${currentBook.packagingSize}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Hình thức: </b>
+                                <span th:text="${currentBook.format}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <b>Giới thiệu sách: </b>
+                                <div th:text="${currentBook.introduction}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <div th:replace="~{admin/layout/footer::footer}"></div>
+        </div>
+    </div>
+</body>
+
+</html>
