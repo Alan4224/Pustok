@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- Mirrored from htmldemo.net/pustok/pustok/shop-grid.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Mar 2025 14:09:09 GMT -->
+
+
+<head th:replace="~{client/layout/head::head}"></head>
+
+<body>
+    <div class="site-wrapper" id="top">
+        <div class="site-header d-none d-lg-block">
+            <div th:replace="~{client/layout/header::header}"></div>
+        </div>
+        <div th:replace="~{client/layout/mobile-header::mobile-header}"></div>
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="text-center mt-4">
+                            <img class="mb-4 img-error" th:src="client/image/error-404-monochrome.svg" />
+                            <p class="lead">This requested URL was not found on this server.</p>
+                            <a href="/">
+                                <i class="fas fa-arrow-left me-1"></i>
+                                Return to Homepage
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div th:replace="~{client/layout/footer::footer}"></div>
+</body>
+
+
+<!-- Mirrored from htmldemo.net/pustok/pustok/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Mar 2025 14:09:09 GMT -->
+
+</html>

@@ -28,6 +28,10 @@ public class BookDto {
     @Min(value = 1, message = "Số lượng phải lớn hơn hoặc bằng 1")
     private Integer quantity;
 
+    private Integer sold = 0;
+
+    private Integer viewed = 0;
+
     private String introduction;
 
     private String author;

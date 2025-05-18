@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alan.Pustok.dto.BookDisplayDto;
 import com.alan.Pustok.dto.BookDto;
 import com.alan.Pustok.entity.Book;
-import com.alan.Pustok.entity.Provider;
 import com.alan.Pustok.repository.BookRepository;
 import com.alan.Pustok.service.BookService;
 import com.alan.Pustok.utils.UploadUtil;
@@ -36,7 +40,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book findBookById(int id) {
-        return bookRepository.findById(id).get();
+        return bookRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -51,5 +55,23 @@ public class BookServiceImpl implements BookService {
     public void delete(int id) {
         UploadUtil.deleteImageLink(bookRepository.findById(id).get().getImage(), Book.class);
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookDisplayDto> findBooks(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).descending());
+        return bookRepository.findBooks(pageable);
+    }
+
+    @Override
+    public Page<BookDisplayDto> findByBookTypeId(int bookTypeId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return bookRepository.findByBookTypeId(bookTypeId, pageable);
+    }
+
+    @Override
+    public List<BookDisplayDto> findRelatedBooks(String author, int id) {
+        Pageable pageable = PageRequest.of(0, 4);
+        return bookRepository.findByAuthorExcluding(author, id, pageable);
     }
 }

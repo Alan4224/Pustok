@@ -14,4 +14,6 @@ public interface BookTypeService {
     BookType create(BookTypeDto bookTypeDto);
 
     void delete(int id);
+
+    BookType findById(int id);
 }

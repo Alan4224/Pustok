@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- Mirrored from htmldemo.net/pustok/pustok/shop-grid.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Mar 2025 14:09:09 GMT -->
+
+
+<head th:replace="~{client/layout/head::head}"></head>
+
+<body>
+    <div class="site-wrapper" id="top">
+        <div class="site-header d-none d-lg-block">
+            <div th:replace="~{client/layout/header::header}"></div>
+        </div>
+        <div th:replace="~{client/layout/mobile-header::mobile-header}"></div>
+        <section class="breadcrumb-section">
+            <h2 class="sr-only">Site Breadcrumb</h2>
+            <div class="container">
+                <div class="breadcrumb-contents">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" th:text="${book.name}"></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </section>
+        <main class="inner-page-sec-padding-bottom">
+            <div class="container">
+                <div class="row  mb--60">
+                    <div class="col-lg-5 mb--30">
+                        <div style="margin-left: 100px;">
+                            <img th:src=${book.image} alt="" height="400px">
+                        </div>
+                    </div>
+                    <!-- Product Details Slider Nav -->
+                    <div class="col-lg-7">
+                        <div class="product-details-info pl-lg--30 ">
+                            <h3 class="product-title" th:text="${book.name}"></h3>
+                            <ul class="list-unstyled">
+                                <li>Tác giả: <span class="list-value" th:text="${book.author}"></span></li>
+                                <li>NXB: <span class="list-value" th:text="${book.publisher}"></span></li>
+                                <li>Nhà cung cấp: <span class="list-value" th:text="${book.provider.name}"></span>
+                                </li>
+                                <li>Số lượng: <span class="list-value" th:text="${book.quantity}"></span></li>
+                            </ul>
+                            <div class="price-block">
+                                <span class="price-new"
+                                    th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+                            </div>
+                            <div class="add-to-cart-row">
+                                <div class="count-input-block">
+                                    <span class="widget-label"></span>
+                                    <input type="number" class="form-control text-center" value="1">
+                                </div>
+                                <div class="add-cart-btn">
+                                    <a href="#" class="btn btn-outlined--primary"><span class="plus-icon">+</span>Thêm
+                                        vào giỏ hàng</a>
+                                </div>
+                            </div>
+                            <div class="compare-wishlist-row">
+                                <a href="#" class="add-link"><i class="fas fa-heart"></i>Thêm vào yêu thích</a>
+                                <a href="#" class="add-link"><i class="fas fa-random"></i>Thêm vào so sánh</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sb-custom-tab review-tab section-padding">
+                    <ul class="nav nav-tabs nav-style-2" id="myTab2" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="tab1" data-bs-toggle="tab" href="#tab-1" role="tab"
+                                aria-controls="tab-1" aria-selected="true">
+                                GIỚI THIỆU SÁCH
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab2" data-bs-toggle="tab" href="#tab-2" role="tab"
+                                aria-controls="tab-2" aria-selected="true">
+                                THÔNG TIN CHI TIẾT
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content space-db--20" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="tab1">
+                            <article class="review-article">
+                                <h1 class="sr-only">Tab Article</h1>
+                                <p th:utext="${book.introduction}"></p>
+                            </article>
+                        </div>
+                        <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2">
+                            <table>
+                                <tr>
+                                    <td>Tác giả</td>
+                                    <td th:text="${book.author}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Dịch giả</td>
+                                    <td th:text="${book.translator}"></td>
+                                </tr>
+                                <tr>
+                                    <td>NXB</td>
+                                    <td th:text="${book.publisher}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Năm phát hành</td>
+                                    <td th:text="${book.releaseYear}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tác giả</td>
+                                    <td th:text="${book.author}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Khối lượng</td>
+                                    <td th:text="${book.weight}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Kích thước bao bì</td>
+                                    <td th:text="${book.packagingSize}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Số trang</td>
+                                    <td th:text="${book.totalPage}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Hình thức</td>
+                                    <td th:text="${book.format}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Nhà cung cấp</td>
+                                    <td th:text="${book.provider.name}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--=================================
+    RELATED PRODUCTS BOOKS
+===================================== -->
+            <section class="">
+                <div class="container">
+                    <div class="section-title section-title--bordered">
+                        <h2>Sản phẩm liên quan</h2>
+                    </div>
+                    <div th:each="relatedBook:${relatedBooks}"
+                        style="display: inline-block; width: 23.5%; margin: 0.5%; vertical-align: top;">
+                        <div class="product-card">
+                            <div class="product-header">
+                                <a href="#" class="author" th:text="${relatedBook.author}">
+                                </a>
+                                <h3><a th:href="@{/sach/{id}(id=${relatedBook.id})}" th:text="${relatedBook.name}"></a>
+                                </h3>
+                            </div>
+                            <div class="product-card--body">
+                                <div class="card-image">
+                                    <img th:src="${relatedBook.image}" alt="">
+                                    <div class="hover-contents">
+                                        <a th:href="@{/sach/{id}(id=${relatedBook.id})}" class="hover-image">
+                                            <img th:src="${relatedBook.image}" alt="">
+                                        </a>
+                                        <div class="hover-btns">
+                                            <a th:href="@{/cart}" class="single-btn">
+                                                <i class="fas fa-shopping-basket"></i>
+                                            </a>
+                                            <a th:href="@{/wishlist}" class="single-btn">
+                                                <i class="fas fa-heart"></i>
+                                            </a>
+                                            <a th:href="@{/compare}" class="single-btn">
+                                                <i class="fas fa-random"></i>
+                                            </a>
+                                            <a th:href="@{/sach/{id}(id=${relatedBook.id})}" class="single-btn">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price-block">
+                                    <span class="price"
+                                        th:text="${#numbers.formatDecimal(relatedBook.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div th:replace="~{client/layout/footer::footer}"></div>
+</body>
+
+
+<!-- Mirrored from htmldemo.net/pustok/pustok/product-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Mar 2025 14:09:09 GMT -->
+
+</html>

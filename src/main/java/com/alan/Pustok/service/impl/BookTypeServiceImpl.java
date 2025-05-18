@@ -35,4 +35,9 @@ public class BookTypeServiceImpl implements BookTypeService {
         bookTypeRepository.deleteById(id);
     }
 
+    @Override
+    public BookType findById(int id) {
+        return bookTypeRepository.findById(id).orElse(null);
+    }
+
 }
