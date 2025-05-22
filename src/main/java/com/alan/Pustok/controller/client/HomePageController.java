@@ -1,15 +1,16 @@
 package com.alan.Pustok.controller.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.alan.Pustok.entity.Book;
 import com.alan.Pustok.service.BookService;
 import com.alan.Pustok.service.BookTypeService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -21,7 +22,7 @@ public class HomePageController {
     private BookTypeService bookTypeService;
 
     @GetMapping("")
-    public String getHomePage(Model model) {
+    public String getHomePage(Model model, HttpSession session) {
         model.addAttribute("allBookTypes", bookTypeService.findAll());
         model.addAttribute("bestSellers", bookService.findBooks(0, 12, "sold"));
         model.addAttribute("featuredBooks", bookService.findBooks(0, 24, "sold"));

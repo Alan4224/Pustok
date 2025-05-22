@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- Mirrored from htmldemo.net/pustok/pustok/index-4.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Mar 2025 14:09:05 GMT -->
+
+<head th:replace="~{client/layout/head::head}"></head>
+
+<body>
+	<div class="site-wrapper" id="top">
+		<div class="site-header header-2 mb--20 d-none d-lg-block">
+			<div th:replace="~{client/layout/header::header}"></div>
+		</div>
+		<div th:replace="~{client/layout/mobile-header::mobile-header}"></div>
+		<section class="breadcrumb-section">
+			<h2 class="sr-only">Site Breadcrumb</h2>
+			<div class="container">
+				<div class="breadcrumb-contents">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active">Giỏ hàng</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</section>
+		<!-- Cart Page Start -->
+		<main class="cart-page-main-block inner-page-sec-padding-bottom">
+			<div class="cart_area cart-area-padding  ">
+				<div class="container">
+					<div class="page-section-title">
+						<h1>Giỏ hàng</h1>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<form action="/update-card" method="post">
+								<!-- Cart Table -->
+								<div class="cart-table table-responsive mb--40">
+									<table class="table">
+										<!-- Head Row -->
+										<thead>
+											<tr>
+												<th class="pro-remove"></th>
+												<th class="pro-thumbnail">Hình ảnh</th>
+												<th class="pro-title">Sản phẩm</th>
+												<th class="pro-price">Giá bán</th>
+												<th class="pro-quantity">Số lượng</th>
+												<th class="pro-subtotal">Tổng tiền</th>
+											</tr>
+										</thead>
+										<tbody th:if="${session.cart != null}">
+											<!-- Product Row -->
+											<tr th:each="item:${session.cart.values()}">
+												<td class="pro-remove"><a th:href="@{/delete-cart/{id}(id=${item.book.id})}"><i
+															class="far fa-trash-alt"></i></a>
+												</td>
+												<td class="pro-thumbnail"><a th:href="@{/sach(id=${item.book.id})}"><img
+															th:src="${item.book.image}" alt="Product"></a>
+												</td>
+												<td class="pro-title"><a th:href="@{/sach(id=${item.book.id})}" th:text="${item.book.name}"></a>
+												</td>
+												<td class="pro-price">
+													<span
+														th:text="${#numbers.formatDecimal(item.book.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+												</td>
+												<td class="pro-quantity">
+													<input type="hidden" name="id" th:value="${item.book.id}">
+													<div class="pro-qty">
+														<div class="count-input-block">
+															<button type="button" class="btn-minus">−</button>
+															<input type="number" class="quantity-input" th:value="${item.quantity}" min="1"
+																th:attr="data-price=${item.book.price}" name="quantity">
+															<button type="button" class="btn-plus">+</button>
+														</div>
+													</div>
+												</td>
+												<td class="pro-subtotal">
+													<span th:text="${item.book.price * item.quantity} + ' VNĐ'" class="subtotal"></span>
+												</td>
+											</tr>
+											<style>
+												.count-input-block {
+													display: flex;
+													align-items: center;
+													justify-content: center;
+													gap: 5px;
+													/* Khoảng cách giữa các phần tử */
+												}
+
+												.btn-minus,
+												.btn-plus {
+													background: none;
+													border: none;
+													font-size: 24px;
+													/* Làm ký hiệu lớn hơn */
+													cursor: pointer;
+													padding: 5px;
+												}
+
+												.quantity-input {
+													width: 50px;
+													text-align: center;
+													/* Căn giữa số theo chiều ngang */
+													font-size: 18px;
+													border: 1px solid #ddd;
+													height: 40px;
+													/* Tăng chiều cao để số có đủ không gian */
+													display: flex;
+													align-items: center;
+													/* Căn giữa số theo chiều dọc */
+												}
+											</style>
+											<script>
+												document.addEventListener("DOMContentLoaded", function () {
+													const minusBtns = document.querySelectorAll(".btn-minus");
+													const plusBtns = document.querySelectorAll(".btn-plus");
+													const quantityInputs = document.querySelectorAll(".quantity-input");
+
+													function updateSubtotal(input) {
+														const price = parseFloat(input.getAttribute("data-price"));
+														const quantity = parseInt(input.value);
+														const subtotal = price * quantity;
+														input.closest("tr").querySelector(".subtotal").textContent = subtotal.toLocaleString() + " VNĐ";
+													}
+
+													minusBtns.forEach((btn, index) => {
+														btn.addEventListener("click", function () {
+															let input = quantityInputs[index];
+															if (input.value > 1) {
+																input.value = parseInt(input.value) - 1;
+																updateSubtotal(input);
+															}
+														});
+													});
+
+													plusBtns.forEach((btn, index) => {
+														btn.addEventListener("click", function () {
+															let input = quantityInputs[index];
+															input.value = parseInt(input.value) + 1;
+															updateSubtotal(input);
+														});
+													});
+
+													quantityInputs.forEach(input => {
+														input.addEventListener("input", function () {
+															updateSubtotal(input);
+														});
+													});
+												});
+											</script>
+											<!-- Discount Row  -->
+											<tr>
+												<td colspan="6" class="actions">
+													<div class="update-block text-right">
+														<input type="submit" class="btn btn-outlined" name="update_cart" value="Cập nhật giỏ hàng"
+															th:disabled="${session.cart == null or session.cart.size()==0}">
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="cart-section-2">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-6 col-12 mb--30 mb-lg--0">
+							<!-- slide Block 5 / Normal Slider -->
+							<div class="cart-block-title">
+								<h2>Có thể bạn quan tâm…</h2>
+							</div>
+							<div class="product-slider sb-slick-slider" data-slick-setting='{
+							          "autoplay": true,
+							          "autoplaySpeed": 8000,
+							          "slidesToShow": 2
+									  }' data-slick-responsive='[
+                {"breakpoint":992, "settings": {"slidesToShow": 2} },
+                {"breakpoint":768, "settings": {"slidesToShow": 3} },
+                {"breakpoint":575, "settings": {"slidesToShow": 2} },
+                {"breakpoint":480, "settings": {"slidesToShow": 1} },
+                {"breakpoint":320, "settings": {"slidesToShow": 1} }
+            ]'>
+								<div class="single-slide" th:each="bestSeller:${bestSellers}">
+									<div class="product-card">
+										<div class="product-header">
+											<a href="#" class="author" th:text="${bestSeller.author}">
+											</a>
+											<h3><a th:href="@{/sach/{id}(id=${bestSeller.id})}" th:text="${bestSeller.name}"></a>
+											</h3>
+										</div>
+										<div class="product-card--body">
+											<div class="card-image">
+												<img th:src="${bestSeller.image}" alt="">
+												<div class="hover-contents">
+													<a th:href="@{/sach/{id}(id=${bestSeller.id})}" class="hover-image">
+														<img th:src="${bestSeller.image}" alt="">
+													</a>
+													<div class="hover-btns">
+														<a th:href="@{/add-cart(id = ${bestSeller.id})}" class="single-btn">
+															<i class="fas fa-shopping-basket"></i>
+														</a>
+														<a th:href="@{/wishlist}" class="single-btn">
+															<i class="fas fa-heart"></i>
+														</a>
+														<a th:href="@{/compare}" class="single-btn">
+															<i class="fas fa-random"></i>
+														</a>
+														<a th:href="@{/sach/{id}(id=${bestSeller.id})}" class="single-btn">
+															<i class="fas fa-eye"></i>
+														</a>
+													</div>
+												</div>
+											</div>
+											<div class="price-block">
+												<span class="price"
+													th:text="${#numbers.formatDecimal(bestSeller.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Cart Summary -->
+						<div class="col-lg-6 col-12 d-flex">
+							<div class="cart-summary">
+								<div class="cart-summary-wrap">
+									<h4><span>Tổng kết</span></h4>
+									<p>Số lượng:<span class="text-primary" th:text="${session.totalQuantity}"></span></p>
+									<p>Thành tiền:<span class="text-primary"
+											th:text="${#numbers.formatDecimal(session.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+									</p>
+									<h2>Tổng tiền:<span class="text-primary"
+											th:text="${#numbers.formatDecimal(session.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+									</h2>
+								</div>
+								<div class="cart-summary-button">
+									<a href="/thanh-toan" class="checkout-btn c-btn btn--primary">Thanh toán</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- Cart Page End -->
+	</div>
+	<div th:replace="~{client/layout/footer::footer}"></div>
+</body>
+
+
+<!-- Mirrored from htmldemo.net/pustok/pustok/cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 11 Mar 2025 14:09:28 GMT -->
+
+</html>

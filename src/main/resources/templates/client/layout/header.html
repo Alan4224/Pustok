@@ -16,8 +16,8 @@
                 <div class="col-lg-3">
                     <nav class="category-nav   ">
                         <div>
-                            <a href="javascript:void(0)" class="category-trigger"><i class="fa fa-bars"></i>Danh
-                                mục</a>
+                            <a href="javascript:void(0)" class="category-trigger"><i class="fa fa-bars"></i>Thể loại
+                                sách</a>
                             <ul class="category-menu">
                                 <li class="cat-item" th:each="bookType:${allBookTypes}">
                                     <a th:href="@{/danh-muc(id=${bookType.id})}" th:text="${bookType.name}"></a>
@@ -39,38 +39,43 @@
                                 <a href="login-register.html" class="font-weight-bold">Login</a> <br>
                                 <span>or</span><a href="login-register.html">Register</a>
                             </div>
-                            <div class="cart-block">
+                            <div class="cart-block" th:if="${session.cart != null and session.cart.size() > 0}">
                                 <div class="cart-total">
-                                    <span class="text-number">
-                                        1
+                                    <span class="text-number" th:text="${session.cart.size()}">
                                     </span>
                                     <span class="text-item">
-                                        Shopping Cart
+                                        Giỏ hàng
                                     </span>
-                                    <span class="price">
-                                        £0.00
+                                    <span class="price" th:if="${session.totalPrice != null and session.totalPrice > 0}"
+                                        th:text="${#numbers.formatDecimal(session.totalPrice, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
                                         <i class="fas fa-chevron-down"></i>
                                     </span>
                                 </div>
                                 <div class="cart-dropdown-block">
                                     <div class=" single-cart-block ">
-                                        <div class="cart-product">
-                                            <a href="product-details.html" class="image">
-                                                <img src="image/products/cart-product-1.jpg" alt="">
+                                        <div class="cart-product" th:each="item:${session.cart.values()}">
+                                            <a th:href="@{/sach(id=${item.book.id})}" class="image">
+                                                <img th:src="${item.book.image}" alt="">
                                             </a>
                                             <div class="content">
-                                                <h3 class="title"><a href="product-details.html">Kodak PIXPRO
-                                                        Astro Zoom AZ421 16 MP</a></h3>
-                                                <p class="price"><span class="qty">1 ×</span> £87.34</p>
-                                                <button class="cross-btn"><i class="fas fa-times"></i></button>
+                                                <h3 class="title"><a th:href="@{/sach(id=${item.book.id})}"
+                                                        th:text="${item.book.name}"></a></h3>
+                                                <p class="price"><span class="qty"
+                                                        th:text="${item.quantity} + 'x'"></span>
+                                                    <span
+                                                        th:text="${#numbers.formatDecimal(item.book.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+                                                </p>
+                                                <a class="cross-btn"
+                                                    th:href="@{/delete-cart/{id}(id=${item.book.id})}"><i
+                                                        class="fas fa-times"></i></a>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" single-cart-block ">
                                         <div class="btn-block">
-                                            <a href="cart.html" class="btn">View Cart <i
+                                            <a href="/gio-hang" class="btn">Giỏ hàng <i
                                                     class="fas fa-chevron-right"></i></a>
-                                            <a href="checkout.html" class="btn btn--primary">Check Out <i
+                                            <a href="/thanh-toan" class="btn btn--primary">Thanh toán <i
                                                     class="fas fa-chevron-right"></i></a>
                                         </div>
                                     </div>

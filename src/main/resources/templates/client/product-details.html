@@ -49,16 +49,62 @@
                                 <span class="price-new"
                                     th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
                             </div>
-                            <div class="add-to-cart-row">
+                            <form th:action="@{/add-cart}" method="post" class="add-to-cart-row">
+                                <input type="hidden" name="id" th:value="${book.id}">
                                 <div class="count-input-block">
-                                    <span class="widget-label"></span>
-                                    <input type="number" class="form-control text-center" value="1">
+                                    <button type="button" class="btn btn-minus">-</button>
+                                    <input type="number" class="form-control text-center quantity-input" name="quantity"
+                                        value="1" min="1">
+                                    <button type="button" class="btn btn-plus">+</button>
                                 </div>
+                                <style>
+                                    .count-input-block {
+                                        display: flex;
+                                        align-items: center;
+                                    }
+
+                                    .btn-minus,
+                                    .btn-plus {
+                                        background: none;
+                                        border: none;
+                                        font-size: 20px;
+                                        /* Điều chỉnh kích thước nếu cần */
+                                        cursor: pointer;
+                                        padding: 5px;
+                                        /* Tạo khoảng cách để dễ bấm */
+                                    }
+
+                                    .quantity-input {
+                                        width: 50px;
+                                        text-align: center;
+                                        margin: 0 10px;
+                                    }
+                                </style>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const minusBtn = document.querySelector(".btn-minus");
+                                        const plusBtn = document.querySelector(".btn-plus");
+                                        const quantityInput = document.querySelector(".quantity-input");
+
+                                        minusBtn.addEventListener("click", function () {
+                                            let value = parseInt(quantityInput.value);
+                                            if (value > 1) {
+                                                quantityInput.value = value - 1;
+                                            }
+                                        });
+
+                                        plusBtn.addEventListener("click", function () {
+                                            let value = parseInt(quantityInput.value);
+                                            quantityInput.value = value + 1;
+                                        });
+                                    });
+                                </script>
                                 <div class="add-cart-btn">
-                                    <a href="#" class="btn btn-outlined--primary"><span class="plus-icon">+</span>Thêm
-                                        vào giỏ hàng</a>
+                                    <button type="submit" class="btn btn-outlined--primary">
+                                        <span class="plus-icon">+</span>Thêm vào giỏ hàng
+                                    </button>
                                 </div>
-                            </div>
+                            </form>
                             <div class="compare-wishlist-row">
                                 <a href="#" class="add-link"><i class="fas fa-heart"></i>Thêm vào yêu thích</a>
                                 <a href="#" class="add-link"><i class="fas fa-random"></i>Thêm vào so sánh</a>
@@ -91,44 +137,48 @@
                         <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2">
                             <table>
                                 <tr>
-                                    <td>Tác giả</td>
+                                    <td>Tác giả:</td>
                                     <td th:text="${book.author}"></td>
                                 </tr>
                                 <tr>
-                                    <td>Dịch giả</td>
+                                    <td>Dịch giả:</td>
                                     <td th:text="${book.translator}"></td>
                                 </tr>
                                 <tr>
-                                    <td>NXB</td>
+                                    <td>NXB:</td>
                                     <td th:text="${book.publisher}"></td>
                                 </tr>
                                 <tr>
-                                    <td>Năm phát hành</td>
+                                    <td>Năm phát hành:</td>
                                     <td th:text="${book.releaseYear}"></td>
                                 </tr>
                                 <tr>
-                                    <td>Tác giả</td>
+                                    <td>Tác giả:</td>
                                     <td th:text="${book.author}"></td>
                                 </tr>
                                 <tr>
-                                    <td>Khối lượng</td>
+                                    <td>Khối lượng:</td>
                                     <td th:text="${book.weight}"></td>
                                 </tr>
                                 <tr>
-                                    <td>Kích thước bao bì</td>
+                                    <td>Kích thước bao bì:</td>
                                     <td th:text="${book.packagingSize}"></td>
                                 </tr>
                                 <tr>
-                                    <td>Số trang</td>
+                                    <td>Số trang:</td>
                                     <td th:text="${book.totalPage}"></td>
                                 </tr>
                                 <tr>
-                                    <td>Hình thức</td>
+                                    <td>Hình thức:</td>
                                     <td th:text="${book.format}"></td>
                                 </tr>
                                 <tr>
-                                    <td>Nhà cung cấp</td>
+                                    <td>Nhà cung cấp:</td>
                                     <td th:text="${book.provider.name}"></td>
+                                </tr>
+                                <tr>
+                                    <td>Thể loại:</td>
+                                    <td th:text="${book.bookType.name}"></td>
                                 </tr>
                             </table>
                         </div>
@@ -161,7 +211,7 @@
                                             <img th:src="${relatedBook.image}" alt="">
                                         </a>
                                         <div class="hover-btns">
-                                            <a th:href="@{/cart}" class="single-btn">
+                                            <a th:href="@{/add-cart(id = ${relatedBook.id})}" class="single-btn">
                                                 <i class="fas fa-shopping-basket"></i>
                                             </a>
                                             <a th:href="@{/wishlist}" class="single-btn">

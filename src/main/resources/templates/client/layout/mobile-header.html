@@ -3,18 +3,18 @@
         <div class="container">
             <div class="row align-items-sm-end align-items-center">
                 <div class="col-md-4 col-7">
-                    <a href="index.html" class="site-brand">
+                    <a href="/" class="site-brand">
                         <img th:src="@{client/image/logo.png}" alt="">
                     </a>
                 </div>
                 <div class="col-md-5 order-3 order-md-2">
                     <nav class="category-nav   ">
                         <div>
-                            <a href="javascript:void(0)" class="category-trigger"><i class="fa fa-bars"></i>Danh
-                                mục</a>
+                            <a href="javascript:void(0)" class="category-trigger"><i class="fa fa-bars"></i>Thể loại
+                                sách</a>
                             <ul class="category-menu">
                                 <li class="cat-item" th:each="bookType:${allBookTypes}">
-                                    <a th:href="@{/danh-muc/{id}(id=${bookType.id})}" th:text="${bookType.name}"></a>
+                                    <a th:href="@{/danh-muc(id=${bookType.id})}" th:text="${bookType.name}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -24,7 +24,7 @@
                     <div class="mobile-header-btns header-top-widget">
                         <ul class="header-links">
                             <li class="sin-link">
-                                <a href="cart.html" class="cart-link link-icon"><i class="ion-bag"></i></a>
+                                <a href="/gio-hang" class="cart-link link-icon"><i class="ion-bag"></i></a>
                             </li>
                             <li class="sin-link">
                                 <a href="javascript:" class="link-icon hamburgur-icon off-canvas-btn"><i

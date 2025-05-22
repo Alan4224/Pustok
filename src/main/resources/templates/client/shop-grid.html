@@ -43,7 +43,7 @@
 												<img th:src="${book.image}" alt="">
 											</a>
 											<div class="hover-btns">
-												<a th:href="@{/cart}" class="single-btn">
+												<a th:href="@{/add-cart(id = ${book.id})}" class="single-btn">
 													<i class="fas fa-shopping-basket"></i>
 												</a>
 												<a th:href="@{/wishlist}" class="single-btn">

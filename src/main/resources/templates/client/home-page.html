@@ -15,42 +15,42 @@
         <!--=================================
         Hero Area
     ===================================== -->
-        <section class="hero-area hero-slider-4 ">
+        <section class="hero-area hero-slider-2">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-9 offset-lg-3">
+                <div class="row align-items-lg-center">
+                    <div class="col-12">
                         <div class="sb-slick-slider" data-slick-setting='{
-                                                                    "autoplay": true,
-                                                                    "autoplaySpeed": 8000,
-                                                                    "slidesToShow": 1,
-                                                                    "dots":true
-                                                                    }'>
-                            <div class="single-slide bg-image bg-overlay--white"
-                                data-bg="client/image/bg-images/home-4-slider-1.jpg">
-                                <div class="home-content text-left pl--30">
+                                                                "autoplay": true,
+                                                                "autoplaySpeed": 8000,
+                                                                "slidesToShow": 1,
+                                                                "dots":true
+                                                                }'>
+                            <div class="single-slide bg-image" data-bg="client/image/bg-images/home-2-slider-2.jpg">
+                                <div class="home-content pl--30">
                                     <div class="row">
-                                        <div class="col-lg-5">
-                                            <span class="title-small">Magazine Cover</span>
-                                            <h1>Mockup.</h1>
+                                        <div class="col-lg-7">
+                                            <span class="title-mid">Book Mockup</span>
+                                            <h2 class="h2-v2">Hardcover.</h2>
                                             <p>Cover up front of book and
                                                 <br>leave summary
                                             </p>
-                                            <a href="shop-grid.html" class="btn btn-outlined--pink">
+                                            <a href="shop-grid.html" class="btn btn-outlined--primary">
                                                 Shop Now
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-slide bg-image bg-overlay--dark"
-                                data-bg="client/image/bg-images/home-4-slider-2.jpg">
-                                <div class="home-content text-center">
-                                    <div class="row justify-content-end">
-                                        <div class="col-lg-8">
-                                            <h1 class="v2">I Love This Idea!</h1>
-                                            <h2>Cover up front of book and
-                                                leave summary</h2>
-                                            <a href="shop-grid.html" class="btn btn--yellow">
+                            <div class="single-slide bg-image" data-bg="client/image/bg-images/home-2-slider-1.jpg">
+                                <div class="home-content pl--30">
+                                    <div class="row">
+                                        <div class="col-lg-7">
+                                            <span class="title-mid">Book Mockup</span>
+                                            <h2 class="h2-v2">Hardcover.</h2>
+                                            <p>Cover up front of book and
+                                                <br>leave summary
+                                            </p>
+                                            <a href="shop-grid.html" class="btn btn-outlined--primary">
                                                 Shop Now
                                             </a>
                                         </div>
@@ -180,7 +180,8 @@
                                                 <div class="product-header">
                                                     <a href="#" class="author" th:text="${bestSeller.author}">
                                                     </a>
-                                                    <h3><a th:href="${bestSeller.id}" th:text="${bestSeller.name}"></a>
+                                                    <h3><a th:href="@{/sach(id=${bestSeller.id})}"
+                                                            th:text="${bestSeller.name}"></a>
                                                     </h3>
                                                 </div>
                                                 <div class="price-block">
@@ -244,19 +245,20 @@
                                                         <div class="product-header">
                                                             <a href="#" class="author"
                                                                 th:text="${featuredBook.author}"></a>
-                                                            <h3><a th:href="@{/most-view}"
+                                                            <h3><a th:href="@{/sach(id=${featuredBook.id})}"
                                                                     th:text="${featuredBook.name}"></a></h3>
                                                         </div>
                                                         <div class="product-card--body">
                                                             <div class="card-image">
                                                                 <img th:src="${featuredBook.image}" alt="">
                                                                 <div class="hover-contents">
-                                                                    <a th:href="@{/product-details}"
+                                                                    <a th:href="@{/sach(id=${featuredBook.id})}"
                                                                         class="hover-image">
                                                                         <img th:src="${featuredBook.image}" alt="">
                                                                     </a>
                                                                     <div class="hover-btns">
-                                                                        <a th:href="@{/cart}" class="single-btn">
+                                                                        <a th:href="@{/add-cart(id = ${featuredBook.id})}"
+                                                                            class="single-btn">
                                                                             <i class="fas fa-shopping-basket"></i>
                                                                         </a>
                                                                         <a th:href="@{/wishlist}" class="single-btn">
@@ -265,7 +267,8 @@
                                                                         <a th:href="@{/compare}" class="single-btn">
                                                                             <i class="fas fa-random"></i>
                                                                         </a>
-                                                                        <a href="#" data-bs-toggle="modal"
+                                                                        <a th:href="@{/sach(id=${featuredBook.id})}"
+                                                                            data-bs-toggle="modal"
                                                                             data-bs-target="#quickModal"
                                                                             class="single-btn">
                                                                             <i class="fas fa-eye"></i>
@@ -301,19 +304,20 @@
                                                         <div class="product-header">
                                                             <a href="#" class="author"
                                                                 th:text="${newArrival.author}"></a>
-                                                            <h3><a th:href="@{/product-details}"
+                                                            <h3><a th:href="@{/sach(id=${newArrival.id})}"
                                                                     th:text="${newArrival.name}"></a></h3>
                                                         </div>
                                                         <div class="product-card--body">
                                                             <div class="card-image">
                                                                 <img th:src="${newArrival.image}" alt="">
                                                                 <div class="hover-contents">
-                                                                    <a th:href="@{/product-details}"
+                                                                    <a th:href="@{/sach(id=${newArrival.id})}"
                                                                         class="hover-image">
                                                                         <img th:src="${newArrival.image}" alt="">
                                                                     </a>
                                                                     <div class="hover-btns">
-                                                                        <a th:href="@{/cart}" class="single-btn">
+                                                                        <a th:href="@{/add-cart(id = ${newArrival.id})}"
+                                                                            class="single-btn">
                                                                             <i class="fas fa-shopping-basket"></i>
                                                                         </a>
                                                                         <a th:href="@{/wishlist}" class="single-btn">
@@ -322,7 +326,8 @@
                                                                         <a th:href="@{/compare}" class="single-btn">
                                                                             <i class="fas fa-random"></i>
                                                                         </a>
-                                                                        <a href="#" data-bs-toggle="modal"
+                                                                        <a th:href="@{/sach(id=${newArrival.id})}"
+                                                                            data-bs-toggle="modal"
                                                                             data-bs-target="#quickModal"
                                                                             class="single-btn">
                                                                             <i class="fas fa-eye"></i>
@@ -358,19 +363,20 @@
                                                     <div class="product-card">
                                                         <div class="product-header">
                                                             <a href="#" class="author" th:text="${mostView.author}"></a>
-                                                            <h3><a th:href="@{/most-view}"
+                                                            <h3><a th:href="@{/sach(id=${mostView.id})}"
                                                                     th:text="${mostView.name}"></a></h3>
                                                         </div>
                                                         <div class="product-card--body">
                                                             <div class="card-image">
                                                                 <img th:src="${mostView.image}" alt="">
                                                                 <div class="hover-contents">
-                                                                    <a th:href="@{/product-details}"
+                                                                    <a th:href="@{/sach(id=${mostView.id})}"
                                                                         class="hover-image">
                                                                         <img th:src="${mostView.image}" alt="">
                                                                     </a>
                                                                     <div class="hover-btns">
-                                                                        <a th:href="@{/cart}" class="single-btn">
+                                                                        <a th:href="@{/add-cart(id = ${mostView.id})}"
+                                                                            class="single-btn">
                                                                             <i class="fas fa-shopping-basket"></i>
                                                                         </a>
                                                                         <a th:href="@{/wishlist}" class="single-btn">
@@ -379,7 +385,8 @@
                                                                         <a th:href="@{/compare}" class="single-btn">
                                                                             <i class="fas fa-random"></i>
                                                                         </a>
-                                                                        <a href="#" data-bs-toggle="modal"
+                                                                        <a th:href="@{/sach(id=${mostView.id})}"
+                                                                            data-bs-toggle="modal"
                                                                             data-bs-target="#quickModal"
                                                                             class="single-btn">
                                                                             <i class="fas fa-eye"></i>
